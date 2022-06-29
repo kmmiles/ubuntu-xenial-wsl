@@ -4,6 +4,4 @@ root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=/dev/null
 . "$root_dir"/profile.sh
 
-docker build \
-  --format docker -t "${DOCKER_TAG_NAME:-}" \
-  "${root_dir:-}"
+docker build -t "${DOCKER_TAG_NAME:-}" "${root_dir:-}"
