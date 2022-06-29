@@ -25,7 +25,8 @@ RUN set -ex; \
     gnupg2 \
     && \
   groupadd -f "sudo" && \
-  useradd -m -s /bin/zsh -G sudo "wsl" && \
+  useradd -m -s /bin/bash -G sudo "wsl" && \
   printf "wsl\nwsl\n" | passwd "wsl" && \
   printf "wsl\nwsl\n" | passwd "root" && \
-  printf "%%sudo ALL=(ALL) NOPASSWD:ALL\n" > /etc/sudoers.d/passwordless
+  printf "%%sudo ALL=(ALL) NOPASSWD:ALL\n" > /etc/sudoers.d/passwordless && \
+  printf "[user]\ndefault = wsl\n" > /etc/wsl.conf
