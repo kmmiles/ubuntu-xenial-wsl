@@ -16,5 +16,7 @@ If the build is succesful, the zifile will automatically be generated and attach
 You need `docker` or `podman` installed. 
 
 To build: `./bin/build`
+
 To create a release: `./bin/release`
+
 To test the container: `./bin/shell`
