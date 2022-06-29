@@ -1,5 +1,7 @@
 # ubuntu-xenial-wsl
 
+This repo serves as an example of how to easily build and install your own WSL distributions. 
+
 ## Install
 
 Download the latest release zipfile, extract it and run `wsl-install.bat`.
