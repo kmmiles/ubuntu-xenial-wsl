@@ -1,6 +1,6 @@
 # ubuntu-xenial-wsl
 
-This repo serves as an example of how to easily build and install your own WSL distributions. 
+This repo serves as an example of how to easily build and install your own WSL2 distributions. 
 
 ## Install
 
