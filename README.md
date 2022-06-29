@@ -1,6 +1,8 @@
 # ubuntu-xenial-wsl
 
 This repo serves as an example of how to easily build and install your own WSL2 distributions. 
+WSL2 distributions are in fact containers, so we build them with `docker` or `podman`.
+This example leverages Github Actions to perform the build, so a local install of `docker` is not required.
 
 ## Install
 
