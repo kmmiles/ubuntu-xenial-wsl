@@ -1,4 +1,5 @@
-FROM ubuntu:xenial
+#FROM ubuntu:xenial
+FROM ubuntu:xenial-20191108
 
 RUN set -ex; \
   export DEBIAN_FRONTEND=noninteractive; \

@@ -6,6 +6,8 @@ root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 if docker container exists "${DOCKER_TAG_NAME:-}"; then
   docker container rm "${DOCKER_TAG_NAME:-}"
+else
+  printf "container not found, skipping\n"
 fi
 
 docker run --name "${DOCKER_TAG_NAME:-}" "${DOCKER_TAG_NAME:-}"

@@ -4,4 +4,4 @@ root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=/dev/null
 . "$root_dir"/profile.sh
 
-docker run -it --rm "${docker_tag_name:-}" bash
+docker run -it --rm "${DOCKER_TAG_NAME:-}" bash
