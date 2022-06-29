@@ -1,0 +1,65 @@
+#!/bin/bash
+
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=/dev/null
+. "$root_dir"/profile.sh
+
+usage() {
+  printf 'Usage: %s [OPTIONS]\n\n' "$0"
+  printf 'OPTIONS\n'
+  printf ' -s\tShrink image\n'
+  printf ' -c\tCopy to desktop instead of zipping\n'
+}
+
+print_wsl_install() {
+  sed 's/%%DISTRO_NAME%%/ubuntu-xenial/g' "${root_dir:-}"/scripts/wsl-install.bat
+}
+
+
+main() {
+  set -e
+
+  # if we're building on github, default to shrinking image
+  if ${CI:-false}; then
+    SHRINK=true
+  else
+    SHRINK=false
+  fi
+
+  COPY=false
+  while getopts 'sc' flag; do
+    case "${flag}" in
+      s)
+        SHRINK=true
+        ;;
+      c)
+        COPY=true
+        ;;
+      *) usage ; exit 1 ;; 
+    esac
+  done
+
+  if $SHRINK; then
+    printf "Shrink mode enabled\n"
+    export SHRINK
+  fi
+
+
+  # build container, export rootfs, copy install.bat and create zip in dist.
+  rm -rf "${root_dir:-}"/dist
+  "${root_dir:-}"/bin/build
+  "${root_dir:-}"/bin/export
+
+  if $COPY; then
+    dest="$HOME/Desktop/${DOCKER_TAG_NAME:-unknown}"
+    rm -rf "$dest"
+    mkdir -p "$dest"
+    cp -v dist/* "$dest"
+    print_wsl_install > "$dest"/install.bat
+  else
+    print_wsl_install > "$root_dir"/dist/install.bat
+    zip -jrm dist/"${DOCKER_TAG_NAME:-}".zip dist/*
+  fi
+}
+
+main "$@"

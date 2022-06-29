@@ -1,0 +1,13 @@
+#!/bin/bash
+
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=/dev/null
+. "$root_dir"/profile.sh
+
+if docker container exists "${DOCKER_TAG_NAME:-}"; then
+  docker container rm "${DOCKER_TAG_NAME:-}"
+fi
+
+docker run --name "${DOCKER_TAG_NAME:-}" "${DOCKER_TAG_NAME:-}"
+mkdir -p "${root_dir:-}/dist"
+docker export "${DOCKER_TAG_NAME:-}" --output="${root_dir}/dist/rootfs.tar"
